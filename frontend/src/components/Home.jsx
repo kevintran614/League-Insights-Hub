@@ -55,6 +55,7 @@ const Home = () => {
           style={{ objectFit: "cover", width: "100%", height: "200px" }}
           alt="League of Legends Image"
         />
+        <br />
         <Card.Title>League Insights Hub</Card.Title>
         <Form onSubmit={submitForm}>
           <Form.Group className="mb-3" controlId="summonerName">
@@ -81,6 +82,7 @@ const Home = () => {
             Search
           </Button>
         </Form>
+        <br />
       </Card>
       {alertMessage && (
         <Alert variant={alertMessage.includes("Please") ? "danger" : "info"}>
