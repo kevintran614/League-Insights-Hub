@@ -34,7 +34,7 @@ const Home = () => {
         );
 
         const data = await getAccountData.json();
-        console.log(data);
+        // console.log(data);
 
         sessionStorage.setItem("accountData", JSON.stringify(data));
         navigate(`/profile/${name}/${tagline}`);
@@ -49,15 +49,13 @@ const Home = () => {
 
   return (
     <div className="App">
-      <Card>
+      <Card bg="light" border="secondary">
         <Card.Img
           src="https://www.pcgamesn.com/wp-content/sites/pcgamesn/2021/11/league-of-legends-arcane-phase-3.jpg"
           style={{ objectFit: "cover", width: "100%", height: "200px" }}
           alt="League of Legends Image"
         />
-
         <Card.Title>League Insights Hub</Card.Title>
-
         <Form onSubmit={submitForm}>
           <Form.Group className="mb-3" controlId="summonerName">
             <Form.Label>Summoner Name</Form.Label>
@@ -80,7 +78,7 @@ const Home = () => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Search
           </Button>
         </Form>
       </Card>
