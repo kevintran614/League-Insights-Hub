@@ -7,12 +7,14 @@ function App() {
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [showGif, setShowGif] = useState(false);
 
   const submitForm = async (e) => {
     e.preventDefault();
 
     if (name && tagline) {
       setAlertMessage(`Searching for Summoner: ${name}#${tagline}`);
+      setShowGif(true);
 
       try {
         const getAccountData = await fetch(
@@ -40,6 +42,7 @@ function App() {
       }
     } else {
       setAlertMessage("Please enter both summoner name and tag line.");
+      setShowGif(false); // Hide the gif if inputs are invalid
     }
   };
 
@@ -84,6 +87,13 @@ function App() {
         <Alert variant={alertMessage.includes("Please") ? "danger" : "info"}>
           {alertMessage}
         </Alert>
+      )}
+      {showGif && (
+        <img
+          src="https://media2.giphy.com/media/FoKl27OsaScXqx2m5T/giphy.webp?cid=790b7611z7wvk4dezdr141e7gxg8sa32qzd4278ud4cme5le&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+          alt="Loading gif"
+          style={{ marginTop: "20px", width: "200px", height: "auto" }}
+        />
       )}
     </div>
   );
