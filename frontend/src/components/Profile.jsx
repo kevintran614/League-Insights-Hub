@@ -87,14 +87,16 @@ const Profile = () => {
   return (
     <div>
       <CardGroup>
-        <Card border="secondary" bg="blue" className="card1">
+        <Card border="secondary" bg="light">
           <Card.Header>Summoner Information</Card.Header>
-          <Card.Img variant="top" src={profileIcon} />
           <Card.Body>
-            <Card.Title>
-              {name} #{tagline}
-            </Card.Title>
-            <Card.Text>Level: {level}</Card.Text>
+            <Card border="primary" bg="dark" text="light">
+              <Card.Header>
+                {name} #{tagline}
+              </Card.Header>
+              <Card.Img variant="top" src={profileIcon} />
+              <Card.Text>Level: {level}</Card.Text>
+            </Card>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
@@ -113,7 +115,7 @@ const Profile = () => {
               <Card border="primary">
                 <Card.Header>Summoner Rank</Card.Header>
                 <Card.Text>
-                  {tier} {rank}
+                  {tier} {rank}, {lp}LP
                 </Card.Text>
               </Card>
               <br />
