@@ -55,12 +55,18 @@ const Profile = () => {
   const level = accountData.summonerData.summonerLevel;
 
   // 2. Feature 2 Metadata (Rank, Tier, LP, Wins, Losses)
-  const queueType = accountData.leagueEntries[0].queueType;
-  const tier = accountData.leagueEntries[0].tier;
-  const rank = accountData.leagueEntries[0].rank;
-  const lp = accountData.leagueEntries[0].leaguePoints;
-  const wins = accountData.leagueEntries[0].wins;
-  const losses = accountData.leagueEntries[0].losses;
+  let hasARank = false;
+  if (accountData.leagueEntries[0] !== undefined) {
+    hasARank = true;
+    var queueType = accountData.leagueEntries[0].queueType;
+    var tier = accountData.leagueEntries[0].tier;
+    var rank = accountData.leagueEntries[0].rank;
+    var lp = accountData.leagueEntries[0].leaguePoints;
+    var wins = accountData.leagueEntries[0].wins;
+    var losses = accountData.leagueEntries[0].losses;
+  } else {
+    hasARank = false;
+  }
 
   // 3. Feature 3 Metadata (Top Champions)
   const champions = accountData.champions.map((champion) => {
@@ -93,16 +99,24 @@ const Profile = () => {
 
         <Card border="secondary" bg="light">
           <Card.Img variant="top" />
-          <Card.Body>
-            <Card.Title>Ranked Insights</Card.Title>
-            <Card.Text>{queueType}</Card.Text>
-            <Card.Text>
-              {tier} {rank} | {lp}LP
-            </Card.Text>
-            <Card.Text>
-              Wins: {wins} | Losses: {losses}
-            </Card.Text>
-          </Card.Body>
+          {hasARank ? (
+            <Card.Body>
+              <Card.Title>Ranked Insights</Card.Title>
+              <Card.Text>{queueType}</Card.Text>
+              <Card.Text>
+                {tier} {rank} | {lp}LP
+              </Card.Text>
+              <Card.Text>
+                Wins: {wins} | Losses: {losses}
+              </Card.Text>
+            </Card.Body>
+          ) : (
+            <Card.Body>
+              <Card.Title>Ranked Insights</Card.Title>
+              <Card.Text>Unranked</Card.Text>
+            </Card.Body>
+          )}
+
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
           </Card.Footer>
