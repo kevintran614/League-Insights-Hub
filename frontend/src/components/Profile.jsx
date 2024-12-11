@@ -88,6 +88,7 @@ const Profile = () => {
     <div>
       <CardGroup>
         <Card border="secondary" bg="blue" className="card1">
+          <Card.Header>Summoner Information</Card.Header>
           <Card.Img variant="top" src={profileIcon} />
           <Card.Body>
             <Card.Title>
@@ -100,11 +101,10 @@ const Profile = () => {
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" className="card2">
-          <Card.Img variant="top" />
+        <Card border="secondary" bg="light">
+          <Card.Header>Ranked Performance</Card.Header>
           {hasARank ? (
             <Card.Body>
-              <Card.Title>Ranked Insights</Card.Title>
               <Card.Text>{queueType}</Card.Text>
               <Card.Text>
                 {tier} {rank} | {lp}LP
@@ -119,31 +119,34 @@ const Profile = () => {
               <Card.Text>This summoner is currently unranked</Card.Text>
             </Card.Body>
           )}
-
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" className="card3">
-          <Card.Img variant="top" />
+        <Card border="secondary" bg="light">
+          <Card.Header>Top Champions</Card.Header>
           <Card.Body>
-            <Card.Title>Top Champions</Card.Title>
             {champions.length > 0 ? (
               champions.map((champion, index) => (
-                <Card className="champion-card">
-                  <Card.Img
-                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.name}_0.jpg`}
-                  ></Card.Img>
-                  <Card.Text key={index}>
-                    Champion: {champion.name}, Level: {champion.level}, Points:{" "}
-                    {champion.points}
-                  </Card.Text>
-                </Card>
+                <>
+                  <Card className="champion-card" border="dark">
+                    <Card.Header>{champion.name}</Card.Header>
+
+                    <Card.Img
+                      src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.name}_0.jpg`}
+                    ></Card.Img>
+                    <Card.Text key={index}>
+                      Level: {champion.level}, Points: {champion.points}
+                    </Card.Text>
+                  </Card>
+                  <br />
+                </>
               ))
             ) : (
               <Card.Text>No champion data available</Card.Text>
             )}
+            <br />
             <Card.Text>Total Champion Mastery Levels: {totalMastery}</Card.Text>
           </Card.Body>
           <Card.Footer>
