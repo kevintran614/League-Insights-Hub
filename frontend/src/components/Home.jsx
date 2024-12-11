@@ -51,7 +51,7 @@ const Home = () => {
     <div className="App">
       <Card bg="light" border="secondary">
         <Card.Img
-          src="https://www.pcgamesn.com/wp-content/sites/pcgamesn/2021/11/league-of-legends-arcane-phase-3.jpg"
+          src="../src/assets/arcane.jpg"
           style={{ objectFit: "cover", width: "100%", height: "200px" }}
           alt="League of Legends Image"
         />
