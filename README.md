@@ -3,9 +3,20 @@
 Welcome to the League Insights Hub! This application provides detailed player performance metrics into your League of Legends profile, ranking, and more. Follow the steps below to get started:
 
 1. Image Demo:
-   <img src=images/home.png>
-   <img src=images/search.png>
-   <img src=images/profile.png>
+<ol>
+  <li>
+    <img src="images/home.png" alt="Home Page" />
+    <p>Home Page</p>
+  </li>
+  <li>
+    <img src="images/search.png" alt="Search Page" />
+    <p>Search Page</p>
+  </li>
+  <li>
+    <img src="images/profile.png" alt="Profile Page" />
+    <p>Profile Page</p>
+  </li>
+</ol>
 
 2. Download dependencies first:<br>
 
