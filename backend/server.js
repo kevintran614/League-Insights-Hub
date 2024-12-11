@@ -26,6 +26,8 @@ const fetchData = async (url) => {
 // Get Account Data Wrapper
 const getAccountData = async (gameName, tagLine) => {
   try {
+    const startTime = Date.now();
+
     // 1. Get encrypted account puuid by Account gameName and tagLine
     const accountData = await fetchData(
       `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${api_key}`
@@ -55,6 +57,9 @@ const getAccountData = async (gameName, tagLine) => {
       `https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/${puuid}?api_key=${api_key}`
     );
 
+    const endTime = Date.now();
+    console.log(`getAccountData took ${endTime - startTime}ms`);
+
     return {
       gameName,
       tagLine,
@@ -75,6 +80,19 @@ app.post("/account-data", async (req, res) => {
   try {
     const { gameName, tagLine } = req.body;
 
+    const queryStartTime = Date.now();
+
+    const checkAccountData = await pool.query(
+      "SELECT * FROM summonerData WHERE summonerName = ($1) AND summonerTagline = ($2)",
+      [gameName, tagLine]
+    );
+
+    if (checkAccountData.rows.length > 0) {
+      const queryEndTime = Date.now();
+      console.log(`query took ${queryEndTime - queryStartTime}ms`);
+      return res.status(200).json(checkAccountData.rows[0].summonermetadata);
+    }
+
     const accountData = await getAccountData(gameName, tagLine);
 
     const insertAccountData = await pool.query(
@@ -82,9 +100,7 @@ app.post("/account-data", async (req, res) => {
       [gameName, tagLine, JSON.stringify(accountData)]
     );
 
-    console.log("Data inserted:", insertAccountData.rows);
-
-    res.status(200).json(accountData);
+    res.status(200).json(insertAccountData.rows[0].summonermetadata);
   } catch (error) {
     res.status(500).json({
       error: `(GET: /get-account) An error occurred: ${error.message}`,

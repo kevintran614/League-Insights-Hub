@@ -34,7 +34,6 @@ const Home = () => {
         );
 
         const data = await getAccountData.json();
-        // console.log(data);
 
         sessionStorage.setItem("accountData", JSON.stringify(data));
         navigate(`/profile/${name}/${tagline}`);
