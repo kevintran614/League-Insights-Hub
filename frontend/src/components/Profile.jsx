@@ -84,7 +84,7 @@ const Profile = () => {
   return (
     <div>
       <CardGroup>
-        <Card border="secondary" bg="light">
+        <Card border="secondary" bg="blue" className="card1">
           <Card.Img variant="top" src={profileIcon} />
           <Card.Body>
             <Card.Title>
@@ -97,7 +97,7 @@ const Profile = () => {
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" bg="light">
+        <Card border="secondary" className="card2">
           <Card.Img variant="top" />
           {hasARank ? (
             <Card.Body>
@@ -113,7 +113,7 @@ const Profile = () => {
           ) : (
             <Card.Body>
               <Card.Title>Ranked Insights</Card.Title>
-              <Card.Text>Unranked</Card.Text>
+              <Card.Text>This summoner is currently unranked</Card.Text>
             </Card.Body>
           )}
 
@@ -122,16 +122,21 @@ const Profile = () => {
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" bg="light">
+        <Card border="secondary" className="card3">
           <Card.Img variant="top" />
           <Card.Body>
             <Card.Title>Top Champions</Card.Title>
             {champions.length > 0 ? (
               champions.map((champion, index) => (
-                <Card.Text key={index}>
-                  Champion: {champion.name}, Level: {champion.level}, Points:{" "}
-                  {champion.points}
-                </Card.Text>
+                <Card className="champion-card">
+                  <Card.Img
+                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.name}_0.jpg`}
+                  ></Card.Img>
+                  <Card.Text key={index}>
+                    Champion: {champion.name}, Level: {champion.level}, Points:{" "}
+                    {champion.points}
+                  </Card.Text>
+                </Card>
               ))
             ) : (
               <Card.Text>No champion data available</Card.Text>
