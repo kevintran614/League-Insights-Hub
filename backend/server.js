@@ -49,12 +49,18 @@ const getAccountData = async (gameName, tagLine) => {
       `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?api_key=${api_key}`
     );
 
+    // 5. Feature # 4 - Get Account Total Mastery
+    const totalMastery = await fetchData(
+      `https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/${puuid}?api_key=${api_key}`
+    );
+
     return {
       gameName,
       tagLine,
       summonerData,
       leagueEntries,
       champions,
+      totalMastery,
     };
   } catch (error) {
     res

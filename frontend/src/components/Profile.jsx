@@ -79,6 +79,9 @@ const Profile = () => {
     };
   });
 
+  // 4. Total Mastery
+  const totalMastery = accountData.totalMastery;
+
   const profileIcon = `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${profileId}.png`;
 
   return (
@@ -141,6 +144,7 @@ const Profile = () => {
             ) : (
               <Card.Text>No champion data available</Card.Text>
             )}
+            <Card.Text>Total Champion Mastery Levels: {totalMastery}</Card.Text>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
