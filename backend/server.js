@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { api_key } = require("./config.js");
+const pool = require("./db");
 
 // port
 const port = 5001;
@@ -75,6 +76,13 @@ app.post("/account-data", async (req, res) => {
     const { gameName, tagLine } = req.body;
 
     const accountData = await getAccountData(gameName, tagLine);
+
+    const insertAccountData = await pool.query(
+      "INSERT INTO summonerData (summonerName, summonerTagline, summonerMetaData) VALUES($1, $2, $3) RETURNING *",
+      [gameName, tagLine, JSON.stringify(accountData)]
+    );
+
+    console.log("Data inserted:", insertAccountData.rows);
 
     res.status(200).json(accountData);
   } catch (error) {
