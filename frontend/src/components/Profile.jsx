@@ -55,12 +55,18 @@ const Profile = () => {
   const level = accountData.summonerData.summonerLevel;
 
   // 2. Feature 2 Metadata (Rank, Tier, LP, Wins, Losses)
-  const queueType = accountData.leagueEntries[0].queueType;
-  const tier = accountData.leagueEntries[0].tier;
-  const rank = accountData.leagueEntries[0].rank;
-  const lp = accountData.leagueEntries[0].leaguePoints;
-  const wins = accountData.leagueEntries[0].wins;
-  const losses = accountData.leagueEntries[0].losses;
+  let hasARank = false;
+  if (accountData.leagueEntries[0] !== undefined) {
+    hasARank = true;
+    var queueType = accountData.leagueEntries[0].queueType;
+    var tier = accountData.leagueEntries[0].tier;
+    var rank = accountData.leagueEntries[0].rank;
+    var lp = accountData.leagueEntries[0].leaguePoints;
+    var wins = accountData.leagueEntries[0].wins;
+    var losses = accountData.leagueEntries[0].losses;
+  } else {
+    hasARank = false;
+  }
 
   // 3. Feature 3 Metadata (Top Champions)
   const champions = accountData.champions.map((champion) => {
@@ -73,12 +79,15 @@ const Profile = () => {
     };
   });
 
+  // 4. Total Mastery
+  const totalMastery = accountData.totalMastery;
+
   const profileIcon = `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${profileId}.png`;
 
   return (
     <div>
       <CardGroup>
-        <Card border="secondary" bg="light">
+        <Card border="secondary" bg="blue" className="card1">
           <Card.Img variant="top" src={profileIcon} />
           <Card.Body>
             <Card.Title>
@@ -91,37 +100,51 @@ const Profile = () => {
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" bg="light">
+        <Card border="secondary" className="card2">
           <Card.Img variant="top" />
-          <Card.Body>
-            <Card.Title>Ranked Insights</Card.Title>
-            <Card.Text>{queueType}</Card.Text>
-            <Card.Text>
-              {tier} {rank} | {lp}LP
-            </Card.Text>
-            <Card.Text>
-              Wins: {wins} | Losses: {losses}
-            </Card.Text>
-          </Card.Body>
+          {hasARank ? (
+            <Card.Body>
+              <Card.Title>Ranked Insights</Card.Title>
+              <Card.Text>{queueType}</Card.Text>
+              <Card.Text>
+                {tier} {rank} | {lp}LP
+              </Card.Text>
+              <Card.Text>
+                Wins: {wins} | Losses: {losses}
+              </Card.Text>
+            </Card.Body>
+          ) : (
+            <Card.Body>
+              <Card.Title>Ranked Insights</Card.Title>
+              <Card.Text>This summoner is currently unranked</Card.Text>
+            </Card.Body>
+          )}
+
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
           </Card.Footer>
         </Card>
 
-        <Card border="secondary" bg="light">
+        <Card border="secondary" className="card3">
           <Card.Img variant="top" />
           <Card.Body>
             <Card.Title>Top Champions</Card.Title>
             {champions.length > 0 ? (
               champions.map((champion, index) => (
-                <Card.Text key={index}>
-                  Champion: {champion.name}, Level: {champion.level}, Points:{" "}
-                  {champion.points}
-                </Card.Text>
+                <Card className="champion-card">
+                  <Card.Img
+                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.name}_0.jpg`}
+                  ></Card.Img>
+                  <Card.Text key={index}>
+                    Champion: {champion.name}, Level: {champion.level}, Points:{" "}
+                    {champion.points}
+                  </Card.Text>
+                </Card>
               ))
             ) : (
               <Card.Text>No champion data available</Card.Text>
             )}
+            <Card.Text>Total Champion Mastery Levels: {totalMastery}</Card.Text>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>

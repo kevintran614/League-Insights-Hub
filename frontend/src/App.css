@@ -4,3 +4,19 @@
   padding: 2rem;
   text-align: center;
 }
+
+.card.card1 {
+  background-color: lightblue;
+}
+
+.card.card2 {
+  background-color: white;
+}
+
+.card.card3 {
+  background-color: gray;
+}
+
+.card.champion-card {
+  background-color: white;
+}
