@@ -105,13 +105,25 @@ const Profile = () => {
           <Card.Header>Ranked Performance</Card.Header>
           {hasARank ? (
             <Card.Body>
-              <Card.Text>{queueType}</Card.Text>
-              <Card.Text>
-                {tier} {rank} | {lp}LP
-              </Card.Text>
-              <Card.Text>
-                Wins: {wins} | Losses: {losses}
-              </Card.Text>
+              <Card border="primary">
+                <Card.Header>Summoner Rank Type</Card.Header>
+                <Card.Text>Queue Type: {queueType}</Card.Text>
+              </Card>
+              <br />
+              <Card border="primary">
+                <Card.Header>Summoner Rank</Card.Header>
+                <Card.Text>
+                  {tier} {rank}
+                </Card.Text>
+              </Card>
+              <br />
+              <Card border="primary">
+                <Card.Header>Win Loss Statistics</Card.Header>
+                <Card.Text>
+                  Wins: {wins} | Losses: {losses}
+                </Card.Text>
+              </Card>
+              <br />
             </Card.Body>
           ) : (
             <Card.Body>
@@ -130,7 +142,7 @@ const Profile = () => {
             {champions.length > 0 ? (
               champions.map((champion, index) => (
                 <>
-                  <Card className="champion-card" border="dark">
+                  <Card className="champion-card" border="primary" bg="light">
                     <Card.Header>{champion.name}</Card.Header>
 
                     <Card.Img
@@ -155,7 +167,7 @@ const Profile = () => {
         </Card>
       </CardGroup>
       <br />
-      <Button onClick={() => navigate("/")}>Search for a new Summoner</Button>
+      <Button onClick={() => navigate("/")}>Search for a New Summoner</Button>
     </div>
   );
 };
