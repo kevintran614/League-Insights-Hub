@@ -144,7 +144,12 @@ const Profile = () => {
             {champions.length > 0 ? (
               champions.map((champion, index) => (
                 <>
-                  <Card className="champion-card" border="primary" bg="light">
+                  <Card
+                    className="champion-card"
+                    border="primary"
+                    bg="dark"
+                    text="light"
+                  >
                     <Card.Header>{champion.name}</Card.Header>
 
                     <Card.Img
