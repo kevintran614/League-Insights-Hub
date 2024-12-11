@@ -17,3 +17,4 @@
 2. To run the server:<br>
    - cd frontend > npm run dev
    - cd backend > npm run dev
+   - (Could prob combine these into one command so we dont have to have 2 terminals open)
