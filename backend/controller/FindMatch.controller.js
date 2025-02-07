@@ -44,6 +44,9 @@ const getMatchInfo = async (matchId, puuid) => {
       55: "Placeholder and Attack-Smite",
     };
 
+    let teamMappings = {};
+    let enemyMappings = {};
+
     let playerIndex = -1;
     for (let i = 0; i < matchInfo.info.participants.length; i++) {
       if (puuid === matchInfo.info.participants[i].puuid) {
@@ -55,6 +58,8 @@ const getMatchInfo = async (matchId, puuid) => {
     const gameMode = queueMappings[matchInfo.info.queueId];
 
     const gameDuration = matchInfo.info.gameDuration;
+
+    const playerTeamId = matchInfo.info.participants[playerIndex].teamId;
 
     const matchResult = matchInfo.info.participants[playerIndex].win;
     let result = "Loss";
@@ -79,19 +84,35 @@ const getMatchInfo = async (matchId, puuid) => {
 
     const assists = matchInfo.info.participants[playerIndex].assists;
 
-    console.log(gameMode);
-    console.log(gameDuration);
-    console.log(playerIndex);
-    console.log(result);
-    console.log(champion);
-    console.log(championLevel);
-    console.log(spellOne);
-    console.log(spellTwo);
-    console.log(kills);
-    console.log(deaths);
-    console.log(assists);
+    for (let i = 0; i < matchInfo.info.participants.length; i++) {
+      currentPlayer = matchInfo.info.participants[i];
+      currentPlayerTeamId = currentPlayer.teamId;
 
-    return matchInfo;
+      if (currentPlayerTeamId === playerTeamId) {
+        teamMappings[currentPlayer.riotIdGameName] = currentPlayer.championId;
+      } else {
+        enemyMappings[currentPlayer.riotIdGameName] = currentPlayer.championId;
+      }
+    }
+
+    const matchDetails = {
+      gameMode: gameMode,
+      result: result,
+      gameDuration: gameDuration,
+      champion: champion,
+      championLevel: championLevel,
+      spellOne: spellOne,
+      spellTwo: spellTwo,
+      kills: kills,
+      deaths: deaths,
+      assists: assists,
+      teamMappings: teamMappings,
+      enemyMappings: enemyMappings,
+    };
+
+    console.log(matchDetails);
+
+    return matchDetails;
   } catch (error) {
     res
       .status(500)
