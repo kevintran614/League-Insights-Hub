@@ -1,4 +1,6 @@
-// Utility function to fetch metadata
+///////////////////////////
+//   Utility Functions   //
+///////////////////////////
 
 const fetchData = async (url) => {
   try {
