@@ -3,11 +3,13 @@
 //              this way, we don't have to store everything in server.js             //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-const { leagueEntries } = require("../controller/LeagueEntries.controller.js");
+const {
+  getLeagueEntries,
+} = require("../controller/LeagueEntries.controller.js");
 
 const express = require("express");
 const router = express.Router();
 
-router.post("/account-league-entries", leagueEntries);
+router.get("/account-league-entries", getLeagueEntries);
 
 module.exports = router;

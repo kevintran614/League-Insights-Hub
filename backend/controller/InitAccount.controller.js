@@ -2,12 +2,14 @@
 //   InitAccount.controller.js: this will store all of the function logic for our routes   //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-const account = require("../model/Account.js");
+const Account = require("../model/Account.js");
 const fetchData = require("../utils/FetchData.js");
 const { api_key } = require("../config/Config.js");
 
-const initAccount = async (gameName, tagLine) => {
+const initAccount = async (req, res) => {
   try {
+    const { gameName, tagLine } = req.body;
+
     const accountData = await fetchData(
       `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${api_key}`
     );
@@ -17,7 +19,9 @@ const initAccount = async (gameName, tagLine) => {
       `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${api_key}`
     );
 
-    return new account(gameName, tagLine, puuid, summonerData);
+    const account = new Account(gameName, tagLine, puuid, summonerData);
+
+    res.json(account);
   } catch (error) {
     res
       .status(500)

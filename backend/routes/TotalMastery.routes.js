@@ -3,11 +3,11 @@
 //              this way, we don't have to store everything in server.js             //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-const { totalMastery } = require("../controller/TotalMastery.controller.js");
+const { getTotalMastery } = require("../controller/TotalMastery.controller.js");
 
 const express = require("express");
 const router = express.Router();
 
-router.post("/account-total-mastery", totalMastery);
+router.get("/account-total-mastery", getTotalMastery);
 
 module.exports = router;
