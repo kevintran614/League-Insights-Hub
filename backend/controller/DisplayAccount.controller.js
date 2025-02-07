@@ -12,6 +12,7 @@ const {
 } = require("../controller/LeagueEntries.controller.js");
 const { getTotalMastery } = require("../controller/TotalMastery.controller.js");
 const { getMatches } = require("../controller/Matches.controller.js");
+const { getMatchInfo } = require("../controller/FindMatch.controller.js");
 
 const displayAccount = async (req, res) => {
   try {
@@ -26,6 +27,16 @@ const displayAccount = async (req, res) => {
     account.leagueEntries = leagueEntries;
     account.totalMastery = totalMastery;
     account.matches = matches;
+
+    let matchInfos = [];
+
+    for (let i = 0; i < account.matches.length; i++) {
+      let matchInfo = await getMatchInfo(account.matches[i]);
+      matchInfos.push(matchInfo);
+    }
+
+    console.log(matchInfos);
+    account.matchInfos = matchInfos;
 
     res.json(account);
   } catch (error) {

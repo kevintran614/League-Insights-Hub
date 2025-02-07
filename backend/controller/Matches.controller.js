@@ -9,15 +9,15 @@ const getMatches = async (req, res) => {
   try {
     const { puuid } = req.account;
 
-    const champions = await fetchData(
+    const matches = await fetchData(
       `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20&api_key=${api_key}`
     );
 
-    return champions;
+    return matches;
   } catch (error) {
     res
       .status(500)
-      .json({ error: `(getChampions) An error occurred: ${error.message}` });
+      .json({ error: `(getMatches) An error occurred: ${error.message}` });
   }
 };
 

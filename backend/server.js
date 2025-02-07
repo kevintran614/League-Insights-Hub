@@ -9,6 +9,7 @@ const leagueEntriesRoutes = require("./routes/Champions.routes.js");
 const championsRoutes = require("./routes/LeagueEntries.routes.js");
 const totalMasteryRoutes = require("./routes/TotalMastery.routes.js");
 const matchesRoutes = require("./routes/Matches.routes.js");
+const matchInfoRoutes = require("./routes/FindMatch.routes.js");
 const displayAccount = require("./routes/DisplayAccount.routes.js");
 
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use("/api", leagueEntriesRoutes);
 app.use("/api", championsRoutes);
 app.use("/api", totalMasteryRoutes);
 app.use("/api", matchesRoutes);
+app.use("/api", matchInfoRoutes);
 app.use("/api", displayAccount);
 
 const port = 5001;
