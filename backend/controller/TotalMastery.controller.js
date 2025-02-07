@@ -7,7 +7,7 @@ const { api_key } = require("../config/Config.js");
 
 const getTotalMastery = async (req, res) => {
   try {
-    const { puuid } = req.query;
+    const { puuid } = req.account;
 
     const totalMastery = await fetchData(
       `https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/${puuid}?api_key=${api_key}`

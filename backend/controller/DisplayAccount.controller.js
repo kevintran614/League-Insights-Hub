@@ -10,22 +10,19 @@ const { getChampions } = require("../controller/Champions.controller.js");
 const {
   getLeagueEntries,
 } = require("../controller/LeagueEntries.controller.js");
+const { getTotalMastery } = require("../controller/TotalMastery.controller.js");
 
 const displayAccount = async (req, res) => {
   try {
     const account = req.account;
 
-    console.log(account);
-    console.log("alison 1");
-
     const champions = await getChampions(req);
-    console.log("alison 2");
-
     const leagueEntries = await getLeagueEntries(req);
-    console.log("alison 3");
+    const totalMastery = await getTotalMastery(req);
 
     account.champions = champions;
     account.leagueEntries = leagueEntries;
+    account.totalMastery = totalMastery;
 
     res.json(account);
   } catch (error) {
