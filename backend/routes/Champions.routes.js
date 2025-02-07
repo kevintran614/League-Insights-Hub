@@ -3,7 +3,7 @@
 //              this way, we don't have to store everything in server.js             //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-import { initAccount } from "../controllers/initAccount.controller.js";
+import { champions } from "../controllers/Champions.controller.js";
 
 const express = require("express");
 const app = express();
@@ -16,6 +16,6 @@ const port = 5001;
 app.use(express.json());
 app.use(cors());
 
-app.post("/InitAccount", initAccount);
+app.post("/Champions", champions);
 
 export default app;

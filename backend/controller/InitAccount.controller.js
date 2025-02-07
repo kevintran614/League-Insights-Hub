@@ -4,6 +4,7 @@
 
 const account = require("../models/Account.js");
 const fetchData = require("../utils/FetchData.js");
+const { api_key } = require("config/Config.js");
 
 export const initAccount = async (gameName, tagLine) => {
   try {
