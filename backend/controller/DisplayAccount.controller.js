@@ -31,11 +31,12 @@ const displayAccount = async (req, res) => {
     let matchInfos = [];
 
     for (let i = 0; i < account.matches.length; i++) {
-      let matchInfo = await getMatchInfo(account.matches[i]);
+      let matchInfo = await getMatchInfo(account.matches[i], account.puuid);
       matchInfos.push(matchInfo);
+      break;
     }
 
-    console.log(matchInfos);
+    // console.log(matchInfos);
     account.matchInfos = matchInfos;
 
     res.json(account);

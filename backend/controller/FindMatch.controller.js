@@ -5,11 +5,91 @@
 const fetchData = require("../utils/FetchData.js");
 const { api_key } = require("../config/Config.js");
 
-const getMatchInfo = async (matchId) => {
+const getMatchInfo = async (matchId, puuid) => {
   try {
     const matchInfo = await fetchData(
       `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${api_key}`
     );
+
+    const queueMappings = {
+      400: "Normal Draft",
+      420: "Ranked Solo/Duo",
+      430: "Normal Blind",
+      440: "Ranked Flex",
+      450: "ARAM",
+      700: "Clash",
+      900: "URF",
+      1020: "One for All",
+      1200: "Nexus Blitz",
+    };
+
+    const spellMappings = {
+      21: "Barrier",
+      1: "Cleanse",
+      2202: "Flash",
+      2201: "Flee",
+      14: "Ignite",
+      3: "Exhaust",
+      4: "Flash",
+      6: "Ghost",
+      7: "Heal",
+      13: "Clarity",
+      30: "To the King!",
+      31: "Poro Toss",
+      11: "Smite",
+      39: "Mark",
+      32: "Mark",
+      12: "Teleport",
+      54: "Placeholder",
+      55: "Placeholder and Attack-Smite",
+    };
+
+    let playerIndex = -1;
+    for (let i = 0; i < matchInfo.info.participants.length; i++) {
+      if (puuid === matchInfo.info.participants[i].puuid) {
+        playerIndex = i;
+        break;
+      }
+    }
+
+    const gameMode = queueMappings[matchInfo.info.queueId];
+
+    const gameDuration = matchInfo.info.gameDuration;
+
+    const matchResult = matchInfo.info.participants[playerIndex].win;
+    let result = "Loss";
+
+    if (matchResult) {
+      result = "Win";
+    }
+
+    const champion = matchInfo.info.participants[playerIndex].championName;
+
+    const championLevel = matchInfo.info.participants[playerIndex].champLevel;
+
+    const spellOne =
+      spellMappings[matchInfo.info.participants[playerIndex].summoner1Id];
+
+    const spellTwo =
+      spellMappings[matchInfo.info.participants[playerIndex].summoner2Id];
+
+    const kills = matchInfo.info.participants[playerIndex].kills;
+
+    const deaths = matchInfo.info.participants[playerIndex].deaths;
+
+    const assists = matchInfo.info.participants[playerIndex].assists;
+
+    console.log(gameMode);
+    console.log(gameDuration);
+    console.log(playerIndex);
+    console.log(result);
+    console.log(champion);
+    console.log(championLevel);
+    console.log(spellOne);
+    console.log(spellTwo);
+    console.log(kills);
+    console.log(deaths);
+    console.log(assists);
 
     return matchInfo;
   } catch (error) {
