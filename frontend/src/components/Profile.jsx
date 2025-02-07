@@ -48,8 +48,6 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(`INSIDE FRONTEND: ${accountData}`);
-
   // 1. Feature 1 Metadata (Name, Tagline, Profile Picture, Level)
   const profileId = accountData.summonerData.profileIconId;
   const level = accountData.summonerData.summonerLevel;

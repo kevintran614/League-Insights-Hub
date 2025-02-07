@@ -20,7 +20,7 @@ const Home = () => {
 
       try {
         const getAccountData = await fetch(
-          "http://localhost:5001/account-data",
+          "http://localhost:5001/api/display-account",
           {
             method: "POST",
             body: JSON.stringify({
