@@ -124,7 +124,7 @@ const getMatchInfo = async (matchId, puuid) => {
 
     console.log(matchDetails);
 
-    return matchInfo;
+    return matchDetails;
   } catch (error) {
     res
       .status(500)
