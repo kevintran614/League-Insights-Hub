@@ -1,15 +1,17 @@
 ///////////////////////////////////////////////////////////////////////////////////////
-//     LeagueEntries.routes.js: stores all of the extended logic for our routes      //
+//      DisplayAccount.routes.js: stores all of the extended logic for our routes    //
 //              this way, we don't have to store everything in server.js             //
 ///////////////////////////////////////////////////////////////////////////////////////
 
 const {
-  getLeagueEntries,
-} = require("../controller/LeagueEntries.controller.js");
+  displayAccount,
+} = require("../controller/DisplayAccount.controller.js");
+
+const initAccount = require("../middleware/InitAccount.js");
 
 const express = require("express");
 const router = express.Router();
 
-router.post("/account-league-entries", getLeagueEntries);
+router.post("/display-account", initAccount, displayAccount);
 
 module.exports = router;

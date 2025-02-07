@@ -8,6 +8,7 @@ const initAccountRoutes = require("./routes/InitAccount.routes.js");
 const leagueEntriesRoutes = require("./routes/Champions.routes.js");
 const championsRoutes = require("./routes/LeagueEntries.routes.js");
 const totalMasteryRoutes = require("./routes/TotalMastery.routes.js");
+const displayAccount = require("./routes/DisplayAccount.routes.js");
 
 app.use(express.json());
 app.use(cors());
@@ -16,6 +17,7 @@ app.use("/api", initAccountRoutes);
 app.use("/api", leagueEntriesRoutes);
 app.use("/api", championsRoutes);
 app.use("/api", totalMasteryRoutes);
+app.use("/api", displayAccount);
 
 const port = 5001;
 
