@@ -2,11 +2,11 @@
 //   TotalMastery.controller.js: this will store all of the function logic for our routes  //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-const account = require("../models/Account.js");
+const account = require("../model/Account.js");
 const fetchData = require("../utils/FetchData.js");
-const { api_key } = require("config/Config.js");
+const { api_key } = require("../config/Config.js");
 
-export const getTotalMastery = async (puuid) => {
+const getTotalMastery = async (puuid) => {
   try {
     const totalMastery = await fetchData(
       `https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/${puuid}?api_key=${api_key}`

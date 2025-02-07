@@ -3,11 +3,11 @@
 //              this way, we don't have to store everything in server.js             //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-import { totalMastery } from "../controllers/TotalMastery.controller.js";
+const { totalMastery } = require("../controller/TotalMastery.controller.js");
 
 const express = require("express");
 const router = express.Router();
 
 router.post("/account-total-mastery", totalMastery);
 
-export default router;
+module.exports = router;
