@@ -59,14 +59,21 @@ const getMatchInfo = async (matchId, puuid) => {
 
     const gameDuration = matchInfo.info.gameDuration;
 
-    const playerTeamId = matchInfo.info.participants[playerIndex].teamId;
-
     const matchResult = matchInfo.info.participants[playerIndex].win;
     let result = "Loss";
 
     if (matchResult) {
       result = "Win";
     }
+
+    const hoursAgo = Math.ceil(
+      (Date.now() - matchInfo.info.gameEndTimestamp) / (1000 * 60 * 60)
+    );
+
+    const playerTeamId = matchInfo.info.participants[playerIndex].teamId;
+
+    const creepScore =
+      matchInfo.info.participants[playerIndex].totalMinionsKilled;
 
     const champion = matchInfo.info.participants[playerIndex].championName;
 
@@ -84,6 +91,8 @@ const getMatchInfo = async (matchId, puuid) => {
 
     const assists = matchInfo.info.participants[playerIndex].assists;
 
+    const kda = (kills + assists) / deaths;
+
     for (let i = 0; i < matchInfo.info.participants.length; i++) {
       currentPlayer = matchInfo.info.participants[i];
       currentPlayerTeamId = currentPlayer.teamId;
@@ -97,8 +106,10 @@ const getMatchInfo = async (matchId, puuid) => {
 
     const matchDetails = {
       gameMode: gameMode,
-      result: result,
       gameDuration: gameDuration,
+      result: result,
+      hoursAgo: hoursAgo,
+      creepScore: creepScore,
       champion: champion,
       championLevel: championLevel,
       spellOne: spellOne,
@@ -106,13 +117,14 @@ const getMatchInfo = async (matchId, puuid) => {
       kills: kills,
       deaths: deaths,
       assists: assists,
+      kda: kda,
       teamMappings: teamMappings,
       enemyMappings: enemyMappings,
     };
 
     console.log(matchDetails);
 
-    return matchDetails;
+    return matchInfo;
   } catch (error) {
     res
       .status(500)
