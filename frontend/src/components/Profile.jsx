@@ -10,6 +10,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [accountData, setAccountData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [topChampionMappings, setTopChampionMappings] = useState({});
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("accountData");
@@ -19,6 +20,52 @@ const Profile = () => {
     }
     setLoading(false);
   }, [name, tagline]);
+
+  const getPlayerTopChampions = async (accountData) => {
+    try {
+      const response = await fetch(
+        "https://ddragon.leagueoflegends.com/cdn/11.18.1/data/en_US/champion.json"
+      );
+      const data = await response.json();
+      const champions = data.data;
+
+      let championIdMappings = {};
+
+      for (const champion in champions) {
+        const championData = champions[champion];
+        championIdMappings[championData.key] = championData.name;
+      }
+
+      const playerTopChampions = accountData.champions;
+      let topChampionMappings = {};
+
+      for (let i = 0; i < playerTopChampions.length; i++) {
+        const championId = playerTopChampions[i].championId;
+        const championName = championIdMappings[championId];
+        const championLevel = playerTopChampions[i].championLevel;
+        const championPoints = playerTopChampions[i].championPoints;
+
+        if (!topChampionMappings[championName]) {
+          topChampionMappings[championName] = [];
+        }
+
+        topChampionMappings[championName].push({
+          championLevel: championLevel,
+          championPoints: championPoints,
+        });
+      }
+
+      setTopChampionMappings(topChampionMappings);
+    } catch (error) {
+      console.error("Error getting top player champions:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (accountData) {
+      getPlayerTopChampions(accountData);
+    }
+  }, [accountData]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,29 +88,6 @@ const Profile = () => {
     var wins = accountData.leagueEntries[0].wins;
     var losses = accountData.leagueEntries[0].losses;
   }
-
-  // 3. Feature 3 Metadata (Top Champions)
-  const playerTopChampions = accountData.champions;
-  let topChampionMappings = {};
-
-  for (let i = 0; i < playerTopChampions.length; i++) {
-    const championId = playerTopChampions[i].championId;
-    const championLevel = playerTopChampions[i].championLevel;
-    const championPoints = playerTopChampions[i].championPoints;
-    const championGrade = playerTopChampions[i].milestoneGrades[0];
-    const championIcon = null; // todo
-
-    topChampionMappings[championId] = [];
-
-    topChampionMappings[championId].push({
-      championId: championId,
-      championLevel: championLevel,
-      championPoints: championPoints,
-      championGrade: championGrade,
-    });
-  }
-
-  console.log(topChampionMappings);
 
   // 4. Total Mastery
   const totalMastery = accountData.totalMastery;
@@ -94,10 +118,8 @@ const Profile = () => {
   const playerTeamMappings = matchInfos[0].teamMappings;
   const playerEnemyTeamMappings = matchInfos[0].enemyMappings;
 
-  const url =
-    "https://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/Riven.png";
-
   const mapUrl = "https://images2.alphacoders.com/130/1303846.jpg";
+
   return (
     <div>
       <CardGroup>
@@ -163,21 +185,35 @@ const Profile = () => {
         <Card.Header>Top Champions</Card.Header>
         <br />
         <Row xs={1} md={3} className="g-4">
-          {Array.from({ length: 3 }).map((_, idx) => (
-            <Col key={idx}>
-              <Card>
-                <Card.Body>
-                  <Card border="primary" bg="dark" text="light">
-                    <Card.Header>
-                      {name} #{tagline}
-                    </Card.Header>
-                    <Card.Img variant="top" src={url} />
-                    <Card.Text>Level: {level}</Card.Text>
+          {(() => {
+            const championCards = [];
+            const keys = Object.keys(topChampionMappings);
+
+            for (let i = 0; i < keys.length; i++) {
+              const championName = keys[i];
+              const championData = topChampionMappings[championName][0];
+              const championLevel = championData.championLevel;
+              const championPoints = championData.championPoints;
+              const championImageUrl = `https://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/${championName}.png`;
+
+              championCards.push(
+                <Col key={i}>
+                  <Card>
+                    <Card.Body>
+                      <Card border="primary" bg="dark" text="light">
+                        <Card.Header>{championName}</Card.Header>
+                        <Card.Img variant="top" src={championImageUrl} />
+                        <Card.Text>Level: {championLevel}</Card.Text>
+                        <Card.Text>Points: {championPoints}</Card.Text>
+                      </Card>
+                    </Card.Body>
                   </Card>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+                </Col>
+              );
+            }
+
+            return championCards;
+          })()}
         </Row>
       </Card>
 
