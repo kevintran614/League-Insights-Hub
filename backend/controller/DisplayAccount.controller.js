@@ -28,11 +28,11 @@ const displayAccount = async (req, res) => {
     account.totalMastery = totalMastery;
     account.matches = matches;
 
-    let matchInfos = [];
+    let matchInfos = {};
 
     for (let i = 0; i < account.matches.length; i++) {
       let matchInfo = await getMatchInfo(account.matches[i], account.puuid);
-      matchInfos.push(matchInfo);
+      matchInfos[matches[i]] = matchInfo;
       // break;
     }
 

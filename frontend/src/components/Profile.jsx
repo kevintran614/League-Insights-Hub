@@ -11,6 +11,7 @@ const Profile = () => {
   const [accountData, setAccountData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [topChampionMappings, setTopChampionMappings] = useState({});
+  const [playerMatchInfos, setPlayerMatchInfos] = useState({});
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("accountData");
@@ -33,7 +34,7 @@ const Profile = () => {
 
       for (const champion in champions) {
         const championData = champions[champion];
-        championIdMappings[championData.key] = championData.name;
+        championIdMappings[championData.key] = championData.id;
       }
 
       const playerTopChampions = accountData.champions;
@@ -61,9 +62,65 @@ const Profile = () => {
     }
   };
 
+  const getPlayerMatchInfos = async (accountData) => {
+    try {
+      // 5. Match History
+      const matchInfos = accountData.matchInfos;
+      let playerMatchInfos = {};
+
+      for (const [key, value] of Object.entries(matchInfos)) {
+        // Game Info
+        const playerGameMode = value.gameMode;
+        const playerGameDuration = value.gameDuration;
+        const playerGameResult = value.result;
+        const playerGameHoursAgo = value.hoursAgo;
+
+        // Champion Played
+        const playerChampion = value.champion;
+        const playerChampionLevel = value.championLevel;
+        const playerSpellOne = value.spellOne;
+        const playerSpellTwo = value.spellTwo;
+        const playerCreepScore = value.creepScore;
+
+        // KDA Metrics
+        const kills = value.kills;
+        const deaths = value.deaths;
+        const assists = value.assists;
+        const kda = value.kda;
+
+        // Team Info
+        const playerTeamMappings = value.teamMappings;
+        const playerEnemyTeamMappings = value.enemyMappings;
+
+        playerMatchInfos[key] = {
+          playerGameMode: playerGameMode,
+          playerGameDuration: playerGameDuration,
+          playerGameResult: playerGameResult,
+          playerGameHoursAgo: playerGameHoursAgo,
+          playerChampion: playerChampion,
+          playerChampionLevel: playerChampionLevel,
+          playerSpellOne: playerSpellOne,
+          playerSpellTwo: playerSpellTwo,
+          playerCreepScore: playerCreepScore,
+          playerKills: kills,
+          playerDeaths: deaths,
+          playerAssists: assists,
+          playerKda: kda,
+          playerTeamMappings: playerTeamMappings,
+          playerEnemyTeamMappings: playerEnemyTeamMappings,
+        };
+      }
+      console.log(playerMatchInfos);
+      setPlayerMatchInfos(playerMatchInfos);
+    } catch (error) {
+      console.error("Error getting player match infos:", error);
+    }
+  };
+
   useEffect(() => {
     if (accountData) {
       getPlayerTopChampions(accountData);
+      getPlayerMatchInfos(accountData);
     }
   }, [accountData]);
 
@@ -91,32 +148,6 @@ const Profile = () => {
 
   // 4. Total Mastery
   const totalMastery = accountData.totalMastery;
-
-  // 5. Match History
-  const matchInfos = accountData.matchInfos;
-
-  // Game Info
-  const playerGameMode = matchInfos[0].gameMode;
-  const playerGameDuration = matchInfos[0].gameDuration;
-  const playerGameResult = matchInfos[0].result;
-  const playerGameHoursAgo = matchInfos[0].hoursAgo;
-
-  // Champion Played
-  const playerChampion = matchInfos[0].champion;
-  const playerChampionLevel = matchInfos[0].championLevel;
-  const playerSpellOne = matchInfos[0].spellOne;
-  const playerSpellTwo = matchInfos[0].spellTwo;
-  const playerCreepScore = matchInfos[0].creepScore;
-
-  // KDA Metrics
-  const kills = matchInfos[0].kills;
-  const deaths = matchInfos[0].deaths;
-  const assists = matchInfos[0].assists;
-  const kda = matchInfos[0].kda;
-
-  // Team Info
-  const playerTeamMappings = matchInfos[0].teamMappings;
-  const playerEnemyTeamMappings = matchInfos[0].enemyMappings;
 
   const mapUrl = "https://images2.alphacoders.com/130/1303846.jpg";
 
