@@ -122,7 +122,7 @@ const getMatchInfo = async (matchId, puuid) => {
       enemyMappings: enemyMappings,
     };
 
-    console.log(matchDetails);
+    // console.log(matchDetails);
 
     return matchDetails;
   } catch (error) {

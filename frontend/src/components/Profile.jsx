@@ -15,10 +15,8 @@ const Profile = () => {
 
     if (storedData) {
       setAccountData(JSON.parse(storedData));
-      setLoading(false);
-    } else {
-      setLoading(false);
     }
+    setLoading(false);
   }, [name, tagline]);
 
   useEffect(() => {
@@ -79,6 +77,55 @@ const Profile = () => {
 
   // 4. Total Mastery
   const totalMastery = accountData.totalMastery;
+
+  // 5. Match History
+  const matchInfos = accountData.matchInfos;
+
+  // Game Info
+  const playerGameMode = matchInfos[0].gameMode;
+  const playerGameDuration = matchInfos[0].gameDuration;
+  const playerGameResult = matchInfos[0].result;
+  const playerGameHoursAgo = matchInfos[0].hoursAgo;
+
+  // Champion Played
+  const playerChampion = matchInfos[0].champion;
+  const playerChampionLevel = matchInfos[0].championLevel;
+  const playerSpellOne = matchInfos[0].spellOne;
+  const playerSpellTwo = matchInfos[0].spellTwo;
+  const playerCreepScore = matchInfos[0].creepScore;
+
+  // KDA Metrics
+  const kills = matchInfos[0].kills;
+  const deaths = matchInfos[0].deaths;
+  const assists = matchInfos[0].assists;
+  const kda = matchInfos[0].kda;
+
+  // Team Info
+  const playerTeamMappings = matchInfos[0].teamMappings;
+  const playerEnemyTeamMappings = matchInfos[0].enemyMappings;
+
+  // Game Info
+  console.log("playerGameMode:", playerGameMode);
+  console.log("playerGameDuration:", playerGameDuration);
+  console.log("playerGameResult:", playerGameResult);
+  console.log("playerGameHoursAgo:", playerGameHoursAgo);
+
+  // Champion Played
+  console.log("playerChampion:", playerChampion);
+  console.log("playerChampionLevel:", playerChampionLevel);
+  console.log("playerSpellOne:", playerSpellOne);
+  console.log("playerSpellTwo:", playerSpellTwo);
+  console.log("playerCreepScore:", playerCreepScore);
+
+  // KDA Metrics
+  console.log("kills:", kills);
+  console.log("deaths:", deaths);
+  console.log("assists:", assists);
+  console.log("kda:", kda);
+
+  // Team Info
+  console.log("playerTeamMappings:", playerTeamMappings);
+  console.log("playerEnemyTeamMappings:", playerEnemyTeamMappings);
 
   const profileIcon = `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${profileId}.png`;
 
