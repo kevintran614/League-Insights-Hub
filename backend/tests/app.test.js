@@ -28,72 +28,71 @@ describe("POST /display-account", () => {
   });
 });
 
-// 2. account-champions route
-describe("GET /account-champions", () => {
-  describe("Test 1: User enters name and tagline", () => {
-    test("/display-account valid request", async () => {
-      const response = await request(app).post("/api/display-account").send({
-        gameName: "notscaredtolose",
-        tagLine: "123",
-      });
+// // 2. account-champions route
+// describe("GET /account-champions", () => {
+//   describe("Test 1", () => {
+//     test("/account-champions valid request", async () => {
+//       const req = {
+//         account: {
+//           puuid: "some-valid-puuid",
+//         },
+//       };
 
-      expect(response.status).toBe(200);
-    });
-  });
-});
+//       const response = await request(app)
+//         .get("/api/account-champions")
+//         .send(req);
 
-// 3. account-find-match route
-describe("GET /account-find-match", () => {
-  describe("Test 1: User enters name and tagline", () => {
-    test("/display-account valid request", async () => {
-      const response = await request(app).post("/api/display-account").send({
-        gameName: "notscaredtolose",
-        tagLine: "123",
-      });
+//       expect(response.status).toBe(200);
+//     });
+//   });
+// });
 
-      expect(response.status).toBe(200);
-    });
-  });
-});
+// // 3. account-find-match route
+// describe("GET /account-find-match", () => {
+//   describe("Test 1", () => {
+//     test("/account-find-match valid request", async () => {
+//       const response = await request(app)
+//         .get("/api/account-find-match")
+//         .send({});
 
-// 4. account-league-entries route
-describe("GET /account-league-entries", () => {
-  describe("Test 1: User enters name and tagline", () => {
-    test("/display-account valid request", async () => {
-      const response = await request(app).post("/api/display-account").send({
-        gameName: "notscaredtolose",
-        tagLine: "123",
-      });
+//       expect(response.status).toBe(200);
+//     });
+//   });
+// });
 
-      expect(response.status).toBe(200);
-    });
-  });
-});
+// // 4. account-league-entries route
+// describe("GET /account-league-entries", () => {
+//   describe("Test 1", () => {
+//     test("/account-league-entries valid request", async () => {
+//       const response = await request(app)
+//         .get("/api/account-league-entries")
+//         .send({});
 
-// 5. account-matches route
-describe("GET /account-matches", () => {
-  describe("Test 1: User enters name and tagline", () => {
-    test("/display-account valid request", async () => {
-      const response = await request(app).post("/api/display-account").send({
-        gameName: "notscaredtolose",
-        tagLine: "123",
-      });
+//       expect(response.status).toBe(200);
+//     });
+//   });
+// });
 
-      expect(response.status).toBe(200);
-    });
-  });
-});
+// // 5. account-matches route
+// describe("GET /account-matches", () => {
+//   describe("Test 1", () => {
+//     test("/account-matches valid request", async () => {
+//       const response = await request(app).get("/api/account-matches").send({});
 
-// 6. account-total-mastery route
-describe("GET /account-total-mastery", () => {
-  describe("Test 1: User enters name and tagline", () => {
-    test("/display-account valid request", async () => {
-      const response = await request(app).post("/api/display-account").send({
-        gameName: "notscaredtolose",
-        tagLine: "123",
-      });
+//       expect(response.status).toBe(200);
+//     });
+//   });
+// });
 
-      expect(response.status).toBe(200);
-    });
-  });
-});
+// // 6. account-total-mastery route
+// describe("GET /account-total-mastery", () => {
+//   describe("Test 1", () => {
+//     test("/account-total-mastery valid request", async () => {
+//       const response = await request(app)
+//         .get("/api/account-total-mastery")
+//         .send({});
+
+//       expect(response.status).toBe(200);
+//     });
+//   });
+// });
