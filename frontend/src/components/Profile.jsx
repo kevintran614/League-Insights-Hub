@@ -164,12 +164,21 @@ const Profile = () => {
   }
 
   // 5. Match History Pagination
-  const startIndex = (currentPage - 1) * 4;
-  const endIndex = startIndex + 4;
-  const currentMatchInfos = Object.keys(playerMatchInfos).slice(
-    startIndex,
-    endIndex
+  const matchesPerPage = 4;
+  const totalPages = Math.ceil(
+    Object.keys(topChampionMappings).length / matchesPerPage
   );
+
+  function getCurrentMatchesSlice(currentPage) {
+    const startIndex = (currentPage - 1) * 4;
+    const endIndex = startIndex + 4;
+    const currentMatchesSlice = Object.keys(playerMatchInfos).slice(
+      startIndex,
+      endIndex
+    );
+
+    return currentMatchesSlice;
+  }
 
   return (
     <div>
@@ -376,37 +385,21 @@ const Profile = () => {
             return playerMatchInfoCards;
           })()}
         </Row>
+
+        <br />
+
+        <Pagination className="d-flex justify-content-center">
+          <Pagination.Prev
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          <Pagination.Item>{1}</Pagination.Item>
+          <Pagination.Next
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === 5}
+          />
+        </Pagination>
       </Card>
-
-      <Pagination>
-        <Pagination.First
-          onClick={() => setCurrentPage(1)}
-          disabled={currentPage === 1}
-        />
-        <Pagination.Prev
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        />
-        <Pagination.Item>{1}</Pagination.Item>
-        <Pagination.Ellipsis />
-
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item active>{12}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
-
-        <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === 5}
-        />
-        <Pagination.Last
-          onClick={() => setCurrentPage(5)}
-          disabled={currentPage === 5}
-        />
-      </Pagination>
 
       <br />
 
