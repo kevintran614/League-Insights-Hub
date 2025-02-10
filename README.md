@@ -3,6 +3,30 @@
 Welcome to the League Insights Hub! This is a full-stack application leveraging React, Bootstrap, Node.js, and PostgreSQL. League Insights is a comprehensive League of Legends dashboard using the Riot Developer API that allows users
 to query detailed player statistics for over 180 million users. Notable features include include Player Level, Rank, Win/Loss Ratio, Champion Mastery, and Player Match History. Follow the steps below to get started:
 
+# Installation
+
+Download the following dependencies.
+
+### Backend
+
+```python
+cd backend
+
+npm init -y
+npm i -g concurrently
+npm i express cors pg
+npm i --save-dev nodemon
+npm i -D jest supertest
+```
+
+### Frontend
+
+```python
+cd frontend
+
+npm install react-bootstrap bootstrap react-router-dom
+```
+
 1. Image Demo:
 <ul>
   <li>
@@ -21,10 +45,9 @@ to query detailed player statistics for over 180 million users. Notable features
 
 2. Download dependencies first:<br>
 
-   - npm i -g concurrently<br><br>
-
    - cd backend<br>
    - npm init -y<br>
+   - npm i -g concurrently<br><br>
    - npm i express cors pg<br>
    - npm install --save-dev nodemon<br><br>
    - npm i -D jest supertest<br>
