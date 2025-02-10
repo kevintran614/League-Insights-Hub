@@ -163,12 +163,12 @@ const Profile = () => {
     }${seconds}`;
   }
 
-  // 5. Match History Pagination (https://www.geeksforgeeks.org/how-to-paginate-an-array-in-javascript/)
+  // 5. Match History Pagination
   const matchesPerPage = 4;
-  const totalPages = Math.ceil(
-    Object.keys(topChampionMappings).length / matchesPerPage
-  );
+  const totalMatches = Object.keys(playerMatchInfos).length;
+  const totalPages = Math.ceil(totalMatches / matchesPerPage);
 
+  // https://www.geeksforgeeks.org/how-to-paginate-an-array-in-javascript/
   function getCurrentMatchesSlice(currentPage) {
     const startIndex = (currentPage - 1) * 4;
     const endIndex = startIndex + 4;
@@ -178,6 +178,25 @@ const Profile = () => {
     );
 
     return currentMatchesSlice;
+  }
+
+  // https://react-bootstrap.netlify.app/docs/components/pagination
+  function getPages() {
+    const pages = [];
+
+    for (let number = 1; number <= totalPages; number++) {
+      pages.push(
+        <Pagination.Item
+          key={number}
+          active={currentPage === number}
+          onClick={() => setCurrentPage(number)}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    }
+
+    return pages;
   }
 
   return (
@@ -287,12 +306,9 @@ const Profile = () => {
         <Row xs={2} md={2} className="g-4">
           {(() => {
             const playerMatchInfoCards = [];
-            const keys = Object.keys(playerMatchInfos);
+            const keys = getCurrentMatchesSlice(currentPage);
 
             for (let i = 0; i < keys.length; i++) {
-              if (i == 4) {
-                break;
-              }
               // Game Info
               const playerGameMode = playerMatchInfos[keys[i]].playerGameMode;
               const playerGameDuration =
@@ -361,9 +377,7 @@ const Profile = () => {
                                 / {playerAssists}
                               </ListGroup.Item>
 
-                              <ListGroup.Item>
-                                {playerKda.toFixed(2)} KDA
-                              </ListGroup.Item>
+                              <ListGroup.Item>{playerKda} KDA</ListGroup.Item>
                               <ListGroup.Item>
                                 {playerCreepScore} CS
                               </ListGroup.Item>
@@ -392,16 +406,15 @@ const Profile = () => {
         </Row>
 
         <br />
-
         <Pagination className="d-flex justify-content-center">
           <Pagination.Prev
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           />
-          <Pagination.Item>{1}</Pagination.Item>
+          {getPages()}
           <Pagination.Next
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === 5}
+            disabled={currentPage === totalPages}
           />
         </Pagination>
       </Card>
