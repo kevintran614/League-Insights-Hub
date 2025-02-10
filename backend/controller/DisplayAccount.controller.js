@@ -27,6 +27,8 @@ const displayAccount = async (req, res) => {
 
     const queryStartTime = Date.now();
 
+    console.log(`Starting qeury for ${gameName} #${tagLine}`);
+
     const checkAccountData = await pool.query(
       "SELECT * FROM summonerData WHERE summonerName = ($1) AND summonerTagline = ($2)",
       [gameName, tagLine]
@@ -34,7 +36,11 @@ const displayAccount = async (req, res) => {
 
     if (checkAccountData.rows.length > 0) {
       const queryEndTime = Date.now();
-      console.log(`query took ${queryEndTime - queryStartTime}ms`);
+      console.log(
+        `Found ${gameName} #${tagLine} in cache, query took ${
+          queryEndTime - queryStartTime
+        }ms`
+      );
       return res.status(200).json(checkAccountData.rows[0].summonermetadata);
     }
 
@@ -60,7 +66,11 @@ const displayAccount = async (req, res) => {
     account.matchInfos = matchInfos;
 
     const queryEndTime = Date.now();
-    console.log(`query took ${queryEndTime - queryStartTime}ms`);
+    console.log(
+      `Finishing query for ${gameName} #${tagLine}, query took ${
+        queryEndTime - queryStartTime
+      }ms`
+    );
 
     await pool.query(
       "INSERT INTO summonerData (summonerName, summonerTagline, summonerMetaData) VALUES($1, $2, $3) RETURNING *",
