@@ -91,7 +91,14 @@ const getMatchInfo = async (matchId, puuid) => {
 
     const assists = matchInfo.info.participants[playerIndex].assists;
 
-    const kda = (kills + assists) / deaths;
+    let kda = -1;
+    if (!deaths) {
+      kda = kills;
+    } else {
+      kda = (kills + assists) / deaths;
+    }
+
+    kda = kda.toFixed(2);
 
     for (let i = 0; i < matchInfo.info.participants.length; i++) {
       currentPlayer = matchInfo.info.participants[i];

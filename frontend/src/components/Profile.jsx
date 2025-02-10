@@ -358,7 +358,7 @@ const Profile = () => {
                           />
                           <ListGroup.Item style={{ width: "150px" }}>
                             <ListGroup>
-                              <ListGroup.Item>{playerGameMode}</ListGroup.Item>
+                              <ListGroup.Item>{playerChampion}</ListGroup.Item>
                               <ListGroup.Item>
                                 {playerGameResult ? "Win" : "Loss"}
                               </ListGroup.Item>
