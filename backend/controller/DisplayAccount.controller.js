@@ -16,6 +16,14 @@ const { getMatchInfo } = require("../controller/FindMatch.controller.js");
 
 const displayAccount = async (req, res) => {
   try {
+    const { gameName, tagLine } = req.body;
+
+    if (!gameName || !tagLine) {
+      return res.status(500).json({
+        error: `(displayAccount) An error occurred: ${error.message}`,
+      });
+    }
+
     const account = req.account;
 
     const champions = await getChampions(req);
