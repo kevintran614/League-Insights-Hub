@@ -4,6 +4,7 @@ import { Button, Card, CardGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ListGroup from "react-bootstrap/ListGroup";
+import Pagination from "react-bootstrap/Pagination";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Profile = () => {
@@ -13,6 +14,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [topChampionMappings, setTopChampionMappings] = useState({});
   const [playerMatchInfos, setPlayerMatchInfos] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("accountData");
@@ -160,6 +162,14 @@ const Profile = () => {
       seconds < 10 ? "0" : ""
     }${seconds}`;
   }
+
+  // 5. Match History Pagination
+  const startIndex = (currentPage - 1) * 4;
+  const endIndex = startIndex + 4;
+  const currentMatchInfos = Object.keys(playerMatchInfos).slice(
+    startIndex,
+    endIndex
+  );
 
   return (
     <div>
@@ -367,6 +377,36 @@ const Profile = () => {
           })()}
         </Row>
       </Card>
+
+      <Pagination>
+        <Pagination.First
+          onClick={() => setCurrentPage(1)}
+          disabled={currentPage === 1}
+        />
+        <Pagination.Prev
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        />
+        <Pagination.Item>{1}</Pagination.Item>
+        <Pagination.Ellipsis />
+
+        <Pagination.Item>{10}</Pagination.Item>
+        <Pagination.Item>{11}</Pagination.Item>
+        <Pagination.Item active>{12}</Pagination.Item>
+        <Pagination.Item>{13}</Pagination.Item>
+        <Pagination.Item disabled>{14}</Pagination.Item>
+
+        <Pagination.Ellipsis />
+        <Pagination.Item>{20}</Pagination.Item>
+        <Pagination.Next
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === 5}
+        />
+        <Pagination.Last
+          onClick={() => setCurrentPage(5)}
+          disabled={currentPage === 5}
+        />
+      </Pagination>
 
       <br />
 
