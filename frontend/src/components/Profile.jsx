@@ -163,7 +163,7 @@ const Profile = () => {
     }${seconds}`;
   }
 
-  // 5. Match History Pagination
+  // 5. Match History Pagination (https://www.geeksforgeeks.org/how-to-paginate-an-array-in-javascript/)
   const matchesPerPage = 4;
   const totalPages = Math.ceil(
     Object.keys(topChampionMappings).length / matchesPerPage
@@ -354,8 +354,13 @@ const Profile = () => {
                           <ListGroup.Item style={{ width: "150px" }}>
                             <ListGroup>
                               <ListGroup.Item>
-                                {playerKills} / {playerDeaths} / {playerAssists}
+                                {playerKills} /{" "}
+                                <span className="text-danger">
+                                  {playerDeaths}
+                                </span>{" "}
+                                / {playerAssists}
                               </ListGroup.Item>
+
                               <ListGroup.Item>
                                 {playerKda.toFixed(2)} KDA
                               </ListGroup.Item>
