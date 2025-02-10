@@ -60,11 +60,11 @@ const getMatchInfo = async (matchId, puuid) => {
     const gameDuration = matchInfo.info.gameDuration;
 
     const matchResult = matchInfo.info.participants[playerIndex].win;
-    let result = "Loss";
+    // let result = "Loss";
 
-    if (matchResult) {
-      result = "Win";
-    }
+    // if (matchResult) {
+    //   result = "Win";
+    // }
 
     const hoursAgo = Math.ceil(
       (Date.now() - matchInfo.info.gameEndTimestamp) / (1000 * 60 * 60)
@@ -107,7 +107,7 @@ const getMatchInfo = async (matchId, puuid) => {
     const matchDetails = {
       gameMode: gameMode,
       gameDuration: gameDuration,
-      result: result,
+      result: matchResult,
       hoursAgo: hoursAgo,
       creepScore: creepScore,
       champion: champion,

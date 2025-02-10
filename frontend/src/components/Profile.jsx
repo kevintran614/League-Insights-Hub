@@ -300,9 +300,16 @@ const Profile = () => {
                 <Col key={i}>
                   <Card>
                     <Card.Body>
-                      <Card border="primary" bg="dark" text="light">
+                      <Card
+                        border="primary"
+                        bg={playerGameResult ? "primary" : "danger"}
+                        text="light"
+                      >
                         <Card.Header>{playerGameMode}</Card.Header>
-                        <Card.Img variant="top" src={mapUrl} />
+                        <Card.Img
+                          variant="top"
+                          src={`https://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/${playerChampion}.png`}
+                        />
                         <Card.Text>Level: {kills}</Card.Text>
                         <Card.Text>Points: {assists}</Card.Text>
                       </Card>
