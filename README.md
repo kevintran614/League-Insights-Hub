@@ -21,6 +21,8 @@ to query detailed player statistics for over 180 million users. Metrics include 
 
 2. Download dependencies first:<br>
 
+   - npm i -g concurrently<br>
+
    - cd backend<br>
    - npm init -y<br>
    - npm i express cors pg<br>
