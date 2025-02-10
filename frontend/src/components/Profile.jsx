@@ -152,6 +152,15 @@ const Profile = () => {
 
   const mapUrl = "https://images2.alphacoders.com/130/1303846.jpg";
 
+  function formatDuration(duration) {
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+
+    return `${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds}`;
+  }
+
   return (
     <div>
       <CardGroup>
@@ -286,10 +295,10 @@ const Profile = () => {
                 playerMatchInfos[keys[i]].playerCreepScore;
 
               // KDA Metrics
-              const kills = playerMatchInfos[keys[i]].playerKills;
-              const deaths = playerMatchInfos[keys[i]].playerDeaths;
-              const assists = playerMatchInfos[keys[i]].playerAssists;
-              const kda = playerMatchInfos[keys[i]].playerKda;
+              const playerKills = playerMatchInfos[keys[i]].playerKills;
+              const playerDeaths = playerMatchInfos[keys[i]].playerDeaths;
+              const playerAssists = playerMatchInfos[keys[i]].playerAssists;
+              const playerKda = playerMatchInfos[keys[i]].playerKda;
 
               // Team Info
               const playerTeamMappings =
@@ -302,8 +311,8 @@ const Profile = () => {
                   <Card>
                     <Card.Body>
                       <Card
-                        border="primary"
-                        bg={playerGameResult ? "primary" : "danger"}
+                        border="dark"
+                        bg={playerGameResult ? "success" : "danger"}
                         text="light"
                       >
                         <Card.Header>{playerGameMode}</Card.Header>
@@ -314,17 +323,40 @@ const Profile = () => {
                             style={{ width: "150px" }}
                           />
                           <ListGroup.Item style={{ width: "150px" }}>
-                            This
+                            <ListGroup>
+                              <ListGroup.Item>{playerGameMode}</ListGroup.Item>
+                              <ListGroup.Item>
+                                {playerGameResult ? "Win" : "Loss"}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                {formatDuration(playerGameDuration)} mins
+                              </ListGroup.Item>
+                            </ListGroup>
                           </ListGroup.Item>
                           <ListGroup.Item style={{ width: "150px" }}>
-                            ListGroup
+                            <ListGroup>
+                              <ListGroup.Item>
+                                {playerKills} / {playerDeaths} / {playerAssists}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                {playerKda.toFixed(2)} KDA
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                {playerCreepScore} CS
+                              </ListGroup.Item>
+                            </ListGroup>
                           </ListGroup.Item>
                           <ListGroup.Item style={{ width: "150px" }}>
-                            ListGroup
+                            <ListGroup>
+                              <ListGroup.Item>
+                                Level : {playerChampionLevel}
+                              </ListGroup.Item>
+                              <ListGroup.Item>{playerSpellOne}</ListGroup.Item>
+                              <ListGroup.Item>{playerSpellTwo}</ListGroup.Item>
+                            </ListGroup>
                           </ListGroup.Item>
                         </ListGroup>
-                        <Card.Text>Level: {kills}</Card.Text>
-                        <Card.Text>Points: {assists}</Card.Text>
+                        <Card.Text>{playerGameHoursAgo} hours ago</Card.Text>
                       </Card>
                     </Card.Body>
                   </Card>
