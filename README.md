@@ -3,7 +3,7 @@
 Welcome to the League Insights Hub! This is a full-stack application leveraging React, Bootstrap, Node.js, and PostgreSQL. League Insights is a comprehensive League of Legends dashboard using the Riot Developer API that allows users
 to query detailed player statistics for over 180 million users. Notable features include include Player Level, Rank, Win/Loss Ratio, Champion Mastery, and Player Match History. Follow the steps below to get started:
 
-# Installation
+## Installation
 
 Download the following dependencies.
 
@@ -27,34 +27,50 @@ cd frontend
 npm install react-bootstrap bootstrap react-router-dom
 ```
 
-1. Image Demo:
-<ul>
-  <li>
-    <img src="images/home.png" alt="Home Page" />
-    <p>Home Page</p>
-  </li>
-  <li>
-    <img src="images/search.png" alt="Search Page" />
-    <p>Search Page</p>
-  </li>
-  <li>
-    <img src="images/profile.png" alt="Profile Page" />
-    <p>Profile Page</p>
-  </li>
-</ul>
+## Usage
 
-2. Download dependencies first:<br>
+To run the application, change directory to the root folder and type:
 
-   - cd backend<br>
-   - npm init -y<br>
-   - npm i -g concurrently<br><br>
-   - npm i express cors pg<br>
-   - npm install --save-dev nodemon<br><br>
-   - npm i -D jest supertest<br>
+```python
+npm run dev
+```
 
-   - cd frontend<br>
-   - npm install react-bootstrap bootstrap react-router-dom<br>
+## Features
 
-3. To run the server:<br>
-   - cd frontend > npm run dev
-   - cd backend > npm run dev
+League Insights can query for Summoner Information, Ranked Performance, Summoner Status, Summoner Top Champions, and Summoner Match History. Additional miscellaneous features include client-side caching to reduce API call latency and Unit Testing (Jest).
+
+### 1. Landing Page
+
+<img src="images/home.png" alt="Home Page" />
+
+### 2. Search Inputs
+
+<img src="images/search.png" alt="Search Page" />
+
+### 3. Summoner Information, Ranked Performance, and Status
+
+<img src="images/Card_1.png" alt="Card_1" />
+
+### 4. Top Played Champions
+
+<img src="images/Card_2.png" alt="Card_2" />
+
+### 5. Match Histories (Paginated)
+
+<img src="images/Card_3.png" alt="Card_3" />
+<br/>
+<br/>
+<img src="images/Card_4.png" alt="Card_4" />
+
+### 6. Query-Caching
+
+```
+Utilized PostgreSQL for query caching, improving data retrieval speeds and reducing API call latency from ~5000 ms
+to 15 ms, achieving a > 99% performance improvement
+```
+
+<img src="images/Caching.png" alt="Caching" />
+
+### 7. Unit Tests (Jest)
+
+<img src="images/npm_run_dev.png" alt="npm_run_dev" />
