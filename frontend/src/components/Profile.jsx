@@ -222,7 +222,7 @@ const Profile = () => {
 
       <br />
 
-      <Card>
+      <Card border="secondary">
         <Card.Header>Top Champions</Card.Header>
 
         <br />
@@ -241,7 +241,7 @@ const Profile = () => {
 
               championCards.push(
                 <Col key={i}>
-                  <Card>
+                  <Card bg="light">
                     <Card.Body>
                       <Card border="light" bg="dark" text="light">
                         <Card.Header>{championName}</Card.Header>
@@ -262,11 +262,9 @@ const Profile = () => {
 
       <br />
 
-      <Card>
+      <Card border="secondary">
         <Card.Header>Match History</Card.Header>
-
         <br />
-
         <Row xs={2} md={2} className="g-4">
           {(() => {
             const playerMatchInfoCards = [];
@@ -308,7 +306,7 @@ const Profile = () => {
 
               playerMatchInfoCards.push(
                 <Col key={i}>
-                  <Card>
+                  <Card bg="light">
                     <Card.Body>
                       <Card
                         border="dark"
@@ -316,6 +314,7 @@ const Profile = () => {
                         text="light"
                       >
                         <Card.Header>{playerGameMode}</Card.Header>
+
                         <ListGroup horizontal>
                           <Card.Img
                             variant="top"
