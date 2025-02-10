@@ -5,6 +5,7 @@
 
 const fetchData = require("../utils/FetchData.js");
 const { api_key } = require("../config/Config.js");
+const pool = require("../config/Database.js");
 
 const { getChampions } = require("../controller/Champions.controller.js");
 const {
@@ -22,6 +23,19 @@ const displayAccount = async (req, res) => {
       return res.status(500).json({
         error: `(displayAccount) An error occurred: ${error.message}`,
       });
+    }
+
+    const queryStartTime = Date.now();
+
+    const checkAccountData = await pool.query(
+      "SELECT * FROM summonerData WHERE summonerName = ($1) AND summonerTagline = ($2)",
+      [gameName, tagLine]
+    );
+
+    if (checkAccountData.rows.length > 0) {
+      const queryEndTime = Date.now();
+      console.log(`query took ${queryEndTime - queryStartTime}ms`);
+      return res.status(200).json(checkAccountData.rows[0].summonermetadata);
     }
 
     const account = req.account;
@@ -44,6 +58,14 @@ const displayAccount = async (req, res) => {
     }
 
     account.matchInfos = matchInfos;
+
+    const queryEndTime = Date.now();
+    console.log(`query took ${queryEndTime - queryStartTime}ms`);
+
+    await pool.query(
+      "INSERT INTO summonerData (summonerName, summonerTagline, summonerMetaData) VALUES($1, $2, $3) RETURNING *",
+      [gameName, tagLine, JSON.stringify(account)]
+    );
 
     res.json(account);
   } catch (error) {
