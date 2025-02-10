@@ -23,8 +23,11 @@ app.use("/api", matchesRoutes);
 app.use("/api", matchInfoRoutes);
 app.use("/api", displayAccount);
 
-const port = 5001;
+if (process.env.NODE_ENV !== "test") {
+  const port = 5001;
+  app.listen(port, () => {
+    console.log(`Express Server listening on Port ${port}`);
+  });
+}
 
-app.listen(port, () => {
-  console.log(`Express Server listening on Port ${port}`);
-});
+module.exports = app;

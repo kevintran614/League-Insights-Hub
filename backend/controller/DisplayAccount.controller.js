@@ -33,7 +33,6 @@ const displayAccount = async (req, res) => {
     for (let i = 0; i < account.matches.length; i++) {
       let matchInfo = await getMatchInfo(account.matches[i], account.puuid);
       matchInfos[matches[i]] = matchInfo;
-      // break;
     }
 
     account.matchInfos = matchInfos;

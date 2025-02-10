@@ -21,12 +21,13 @@ to query detailed player statistics for over 180 million users. Metrics include 
 
 2. Download dependencies first:<br>
 
-   - npm i -g concurrently<br>
+   - npm i -g concurrently<br><br>
 
    - cd backend<br>
    - npm init -y<br>
    - npm i express cors pg<br>
    - npm install --save-dev nodemon<br><br>
+   - npm i -D jest supertest<br>
 
    - cd frontend<br>
    - npm install react-bootstrap bootstrap react-router-dom<br>
