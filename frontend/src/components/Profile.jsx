@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button, Card, CardGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import ListGroup from "react-bootstrap/ListGroup";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Profile = () => {
@@ -157,12 +158,12 @@ const Profile = () => {
         <Card border="secondary" bg="light">
           <Card.Header>Summoner Information</Card.Header>
           <Card.Body>
-            <Card border="primary" bg="dark" text="light">
+            <Card border="light" bg="dark" text="light">
               <Card.Header>
                 {name} #{tagline}
               </Card.Header>
               <Card.Img variant="top" src={profileIcon} />
-              <Card.Text>Level: {level}</Card.Text>
+              <ListGroup border="dark">Level: {level}</ListGroup>
             </Card>
           </Card.Body>
         </Card>
@@ -233,11 +234,11 @@ const Profile = () => {
                 <Col key={i}>
                   <Card>
                     <Card.Body>
-                      <Card border="primary" bg="dark" text="light">
+                      <Card border="light" bg="dark" text="light">
                         <Card.Header>{championName}</Card.Header>
                         <Card.Img variant="top" src={championImageUrl} />
-                        <Card.Text>Level: {championLevel}</Card.Text>
-                        <Card.Text>Points: {championPoints}</Card.Text>
+                        <ListGroup>Level: {championLevel}</ListGroup>
+                        <ListGroup>Points: {championPoints}</ListGroup>
                       </Card>
                     </Card.Body>
                   </Card>
@@ -306,10 +307,22 @@ const Profile = () => {
                         text="light"
                       >
                         <Card.Header>{playerGameMode}</Card.Header>
-                        <Card.Img
-                          variant="top"
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/${playerChampion}.png`}
-                        />
+                        <ListGroup horizontal>
+                          <Card.Img
+                            variant="top"
+                            src={`https://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/${playerChampion}.png`}
+                            style={{ width: "150px" }}
+                          />
+                          <ListGroup.Item style={{ width: "150px" }}>
+                            This
+                          </ListGroup.Item>
+                          <ListGroup.Item style={{ width: "150px" }}>
+                            ListGroup
+                          </ListGroup.Item>
+                          <ListGroup.Item style={{ width: "150px" }}>
+                            ListGroup
+                          </ListGroup.Item>
+                        </ListGroup>
                         <Card.Text>Level: {kills}</Card.Text>
                         <Card.Text>Points: {assists}</Card.Text>
                       </Card>
