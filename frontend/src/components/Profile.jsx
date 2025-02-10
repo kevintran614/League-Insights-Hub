@@ -110,7 +110,7 @@ const Profile = () => {
           playerEnemyTeamMappings: playerEnemyTeamMappings,
         };
       }
-      console.log(playerMatchInfos);
+
       setPlayerMatchInfos(playerMatchInfos);
     } catch (error) {
       console.error("Error getting player match infos:", error);
@@ -257,22 +257,63 @@ const Profile = () => {
 
         <br />
 
-        <Row xs={1} md={2} className="g-4">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <Col key={idx}>
-              <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                  <Card.Title>Card title</Card.Title>
-                  <Card.Text>
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content. This content is a
-                    little bit longer.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+        <Row xs={2} md={2} className="g-4">
+          {(() => {
+            const playerMatchInfoCards = [];
+            const keys = Object.keys(playerMatchInfos);
+
+            for (let i = 0; i < keys.length; i++) {
+              if (i == 4) {
+                break;
+              }
+              // Game Info
+              const playerGameMode = playerMatchInfos[keys[i]].playerGameMode;
+              const playerGameDuration =
+                playerMatchInfos[keys[i]].playerGameDuration;
+              const playerGameResult =
+                playerMatchInfos[keys[i]].playerGameResult;
+              const playerGameHoursAgo =
+                playerMatchInfos[keys[i]].playerGameHoursAgo;
+
+              // Champion Played
+              const playerChampion = playerMatchInfos[keys[i]].playerChampion;
+              const playerChampionLevel =
+                playerMatchInfos[keys[i]].playerChampionLevel;
+              const playerSpellOne = playerMatchInfos[keys[i]].playerSpellOne;
+              const playerSpellTwo = playerMatchInfos[keys[i]].playerSpellTwo;
+              const playerCreepScore =
+                playerMatchInfos[keys[i]].playerCreepScore;
+
+              // KDA Metrics
+              const kills = playerMatchInfos[keys[i]].playerKills;
+              const deaths = playerMatchInfos[keys[i]].playerDeaths;
+              const assists = playerMatchInfos[keys[i]].playerAssists;
+              const kda = playerMatchInfos[keys[i]].playerKda;
+
+              // Team Info
+              const playerTeamMappings =
+                playerMatchInfos[keys[i]].playerTeamMappings;
+              const playerEnemyTeamMappings =
+                playerMatchInfos[keys[i]].playerEnemyMappings;
+
+              playerMatchInfoCards.push(
+                <Col key={i}>
+                  <Card>
+                    <Card.Body>
+                      <Card border="primary" bg="dark" text="light">
+                        <Card.Header>{playerGameMode}</Card.Header>
+                        <Card.Img variant="top" src={mapUrl} />
+                        <Card.Text>Level: {kills}</Card.Text>
+                        <Card.Text>Points: {assists}</Card.Text>
+                      </Card>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            }
+
+            return playerMatchInfoCards;
+          })()}
         </Row>
       </Card>
 
