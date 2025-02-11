@@ -27,6 +27,40 @@ cd frontend
 npm install react-bootstrap bootstrap react-router-dom
 ```
 
+### Config
+
+The following configuration files are required in order to setup the Database and API-key.
+
+```python
+cd backend
+```
+
+1. Create a config folder.
+2. cd config.
+3. Create a Config.js file containing:
+
+```python
+module.exports = {
+  api_key: "RGAPI-9ef04f8a-3206-4a2d-9885-25ae7f38f4f2",
+};
+```
+
+4. Create a Database.js file containing:
+
+```python
+const Pool = require("pg").Pool;
+
+const pool = new Pool({
+  user: "your user name",
+  password: "your password",
+  host: "your host",
+  port: your port,
+  database: "your database",
+});
+
+module.exports = pool;
+```
+
 ## Usage
 
 To run the application, change directory to the root folder and type:
