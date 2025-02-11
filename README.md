@@ -27,6 +27,20 @@ cd frontend
 npm install react-bootstrap bootstrap react-router-dom
 ```
 
+### Riot Developer API Key
+
+This project utilizes the Riot Developer API to query for summoner metadata. To generate your API key, follow the instructions below:
+
+1. Navigate to https://developer.riotgames.com/apis and create an account.
+2. Once you have created your account, click on your name in the top right corner to trigger the drop-down menu.
+
+<img src="images/drop_down.png" alt="drop_down" />
+
+3. Click on dashboard.
+4. Locate "Development API key" and generate your API key.
+
+<img src="images/api_key.png" alt="api_key" />
+
 ### Config
 
 The following configuration files are required in order to setup the Database and API-key.
@@ -37,7 +51,7 @@ cd backend
 
 1. Create a config folder.
 2. cd config.
-3. Create a Config.js file containing:
+3. Create a Config.js file (/backend/config/Config.js) within your config folder containing:
 
 ```python
 module.exports = {
@@ -45,7 +59,7 @@ module.exports = {
 };
 ```
 
-4. Create a Database.js file containing:
+4. Create a Database.js file (/backend/config/Database.js) within your config folder containing:
 
 ```python
 const Pool = require("pg").Pool;
