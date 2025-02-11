@@ -41,7 +41,7 @@ cd backend
 
 ```python
 module.exports = {
-  api_key: "RGAPI-9ef04f8a-3206-4a2d-9885-25ae7f38f4f2",
+  api_key: "your API-key",
 };
 ```
 
