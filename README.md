@@ -27,6 +27,41 @@ cd frontend
 npm install react-bootstrap bootstrap react-router-dom
 ```
 
+### PostgreSQL Set-Up
+
+League Insights Hub utilizes PostgreSQL for persistent data storage. To configure your PostgreSQL database, follow the instructions below:
+
+1. Download PostgreSQL at https://www.postgresql.org/download/.
+2. Open the PostgreSQL Shell.
+3. Enter your login and password credentials (configured during your installation in Step #1) in the Shell terminal. Your Shell should look as follows:
+
+<img src="images/shell.png" alt="shell" />
+
+4. Create your league database using the following command:
+
+```python
+CREATE DATABASE league;
+```
+
+5. Connect to your newly create league database using:
+
+```python
+\c league
+```
+
+6. Create your PostgreSQL table for your league database by typing in:
+
+```python
+CREATE TABLE summonerData (
+    id SERIAL PRIMARY KEY,
+    summonerName VARCHAR(50),
+    summonerTagline VARCHAR(50),
+    summonerMetaData JSONB
+);
+```
+
+7. Congrats, you have now created your league database to store your queries!
+
 ## Riot Developer API Key
 
 This project utilizes the Riot Developer API to query for summoner metadata. To generate your API key, follow the instructions below:
@@ -77,11 +112,11 @@ module.exports = {
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "your user name",
-  password: "your password",
-  host: "your host",
-  port: your port,
-  database: "your database",
+  user: "postgres",
+  password: "your password (created during initial PostgreSQL installation)",
+  host: "localhost",
+  port: 5432,
+  database: "league",
 });
 
 module.exports = pool;
